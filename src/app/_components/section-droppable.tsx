@@ -26,9 +26,18 @@ type SectionDroppableProps = VariantProps<typeof variants> & {
 }
 
 export default function SectionDroppable({ droppableIndex, variant, placeholder }: SectionDroppableProps) {
-  const { isOver, setNodeRef } = useDroppable({
+  const {
+    isOver: _isDropOver,
+    active,
+    setNodeRef,
+  } = useDroppable({
     id: `section-droppable:${droppableIndex}`,
+    data: {
+      accepts: ['section-preview'],
+    },
   })
+
+  const isOver = _isDropOver ? active?.data.current?.type === 'section-preview' : false
 
   return (
     <div

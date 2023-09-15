@@ -1,9 +1,10 @@
 import DraggableSectionPreview from './_components/draggable-section-preview'
 import DndProvider from './_components/dnd-provider'
-import SectionPreviewOverlay from './_components/section-preview-overaly'
+import SectionPreviewOverlay from './_components/section-preview-overalay'
 import { useStore } from './_stores'
 import EditorCanvas from './_components/editor-canvas'
 import { GlobeIcon } from 'lucide-react'
+import PageSectionSortableOverlay from './_components/page-section-sortable-overlay'
 
 export default function Page() {
   return (
@@ -31,6 +32,7 @@ export default function Page() {
         </div>
       </div>
       <SectionPreviewOverlay />
+      <PageSectionSortableOverlay />
     </DndProvider>
   )
 }
