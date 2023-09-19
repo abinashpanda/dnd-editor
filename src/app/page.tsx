@@ -1,3 +1,5 @@
+'use client'
+
 import DraggableSectionPreview from './_components/draggable-section-preview'
 import DndProvider from './_components/dnd-provider'
 import SectionPreviewOverlay from './_components/section-preview-overalay'
@@ -5,8 +7,11 @@ import { useStore } from './_stores'
 import EditorCanvas from './_components/editor-canvas'
 import { GlobeIcon } from 'lucide-react'
 import PageSectionSortableOverlay from './_components/page-section-sortable-overlay'
+import { useMeasure } from '@uidotdev/usehooks'
 
 export default function Page() {
+  const [ref, { width }] = useMeasure<HTMLDivElement>()
+
   return (
     <DndProvider>
       <div className="flex h-screen overflow-hidden">
@@ -25,14 +30,14 @@ export default function Page() {
               <GlobeIcon className="h-3 w-3" />
               <div className="flex-1">sample.tealfeed</div>
             </div>
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 overflow-hidden" ref={ref}>
               <EditorCanvas />
             </div>
           </div>
         </div>
       </div>
       <SectionPreviewOverlay />
-      <PageSectionSortableOverlay />
+      <PageSectionSortableOverlay width={width ?? 0} />
     </DndProvider>
   )
 }

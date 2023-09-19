@@ -9,17 +9,11 @@ type State = {
   swapSections: (fromIndex: number, toIndex: number) => void
 }
 
-function moveElement<T extends any>(arr: T[], fromIndex: number, toIndex: number) {
-  if (fromIndex < 0 || fromIndex >= arr.length || toIndex < 0 || toIndex >= arr.length) {
-    return [...arr] // return a copy of the array if indexes are out of bounds
-  }
+function arrayMove<T>(array: T[], from: number, to: number): T[] {
+  const newArray = array.slice()
+  newArray.splice(to < 0 ? newArray.length + to : to, 0, newArray.splice(from, 1)[0])
 
-  const result = [...arr] // create a copy of the array
-
-  const [element] = result.splice(fromIndex, 1) // remove the element from the source position
-  result.splice(toIndex, 0, element) // insert the element at the target position
-
-  return result
+  return newArray
 }
 
 export const useStore = create<State>((set) => ({
@@ -51,7 +45,7 @@ export const useStore = create<State>((set) => ({
   },
   swapSections: (fromIndex: number, toIndex: number) => {
     set((state) => {
-      const pageSectionsOrder = moveElement(state.pageSectionsOrder, fromIndex, toIndex)
+      const pageSectionsOrder = arrayMove(state.pageSectionsOrder, fromIndex, toIndex)
       console.log(pageSectionsOrder, fromIndex, toIndex)
       return { pageSectionsOrder }
     })

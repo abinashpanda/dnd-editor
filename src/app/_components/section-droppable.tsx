@@ -1,6 +1,6 @@
 'use client'
 
-import { useDroppable } from '@dnd-kit/core'
+import { useDndContext, useDroppable } from '@dnd-kit/core'
 import { VariantProps, cva } from 'class-variance-authority'
 import { PackagePlusIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -26,6 +26,8 @@ type SectionDroppableProps = VariantProps<typeof variants> & {
 }
 
 export default function SectionDroppable({ droppableIndex, variant, placeholder }: SectionDroppableProps) {
+  const { active: activeDndItem } = useDndContext()
+
   const {
     isOver: _isDropOver,
     active,
@@ -35,6 +37,7 @@ export default function SectionDroppable({ droppableIndex, variant, placeholder 
     data: {
       accepts: ['section-preview'],
     },
+    disabled: activeDndItem?.data?.current?.type !== 'section-preview',
   })
 
   const isOver = _isDropOver ? active?.data.current?.type === 'section-preview' : false

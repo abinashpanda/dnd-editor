@@ -15,7 +15,7 @@ export default function SortableProvider({ children }: ProviderProps) {
 
   return (
     <SortableContext
-      disabled={active?.id.toString().startsWith('draggable-preview:') ? true : false}
+      disabled={active?.data?.current?.type === 'section-preview' ? true : false}
       strategy={rectSortingStrategy}
       items={pageSectionsOrder.map((sectionId, order) => `page-section:${sectionId}:${order}`)}
     >

@@ -3,8 +3,6 @@
 import { DragOverlay, DropAnimation, defaultDropAnimationSideEffects, useDndContext } from '@dnd-kit/core'
 import { useStore } from '../_stores'
 import { useMemo } from 'react'
-import SectionPreview from './section-preview'
-import {} from '@dnd-kit/sortable'
 
 const dropAnimation: DropAnimation = {
   duration: 100,
@@ -17,7 +15,11 @@ const dropAnimation: DropAnimation = {
   }),
 }
 
-export default function PageSectionSortableOverlay() {
+type PageSectionSortableOverlayProps = {
+  width: number
+}
+
+export default function PageSectionSortableOverlay({ width }: PageSectionSortableOverlayProps) {
   const sections = useStore((store) => store.sections)
   const { active } = useDndContext()
 
@@ -31,7 +33,9 @@ export default function PageSectionSortableOverlay() {
   if (section) {
     return (
       <DragOverlay dropAnimation={dropAnimation}>
-        <div className="w-[60vw] shadow-xl">{section.section}</div>
+        <div className="shadow-xl" style={{ width }}>
+          {section.section}
+        </div>
       </DragOverlay>
     )
   }

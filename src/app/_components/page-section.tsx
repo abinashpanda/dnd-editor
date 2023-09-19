@@ -48,6 +48,9 @@ export default function PageSection({ section, sectionIndex }: PageSectionProps)
 
   const { setNodeRef, setActivatorNodeRef, listeners, attributes, isDragging, transform, transition } = useSortable({
     id: `page-section:${section.id}:${sectionIndex}`,
+    data: {
+      type: 'page-section',
+    },
   })
 
   const dragStyle: React.CSSProperties = {
